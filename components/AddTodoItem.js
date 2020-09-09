@@ -39,7 +39,7 @@ const AddTodoItem = ({addTodoItem}) => {
 const styles = StyleSheet.create({
   container: {
     padding: 16,
-    backgroundColor: '#eee',
+    backgroundColor: '#292F36',
   },
   input: {
     flex: 1,

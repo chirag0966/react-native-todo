@@ -1,10 +1,22 @@
-import React from 'react';
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, View, Text, TouchableOpacity, Animated} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const TodoListItem = ({item, deleteTodoItem, toggleTodoItemCompletion}) => {
+  const topValue = useState(new Animated.Value(0))[0];
+
+  function performDelete() {
+    Animated.timing(topValue, {
+      toValue: 999,
+      duration: 500,
+      useNativeDriver: false,
+    }).start(() => {
+      deleteTodoItem(item.id);
+    });
+  }
+
   return (
-    <View style={styles.container}>
+    <Animated.View style={[styles.animatedContainer, {top: topValue}]}>
       <TouchableOpacity
         style={styles.listItem}
         onPress={() => toggleTodoItemCompletion(item.id)}>
@@ -17,23 +29,22 @@ const TodoListItem = ({item, deleteTodoItem, toggleTodoItemCompletion}) => {
           {item.text}
         </Text>
       </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.btn}
-        onPress={() => deleteTodoItem(item.id)}>
+      <TouchableOpacity style={styles.btn} onPress={performDelete}>
         <Icon name="trash" size={24} color="#FF6B6B" />
       </TouchableOpacity>
-    </View>
+    </Animated.View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 16,
-    borderBottomColor: '#E8E8E8',
-    borderBottomWidth: 1,
+  animatedContainer: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
+    padding: 16,
+    borderBottomColor: '#efefef',
+    borderBottomWidth: 1,
   },
   listItem: {
     flex: 1,
@@ -48,9 +59,6 @@ const styles = StyleSheet.create({
     flex: 1,
     color: '#c8c8c8',
     textDecorationLine: 'line-through',
-  },
-  btn: {
-    height: '100%',
   },
 });
 
