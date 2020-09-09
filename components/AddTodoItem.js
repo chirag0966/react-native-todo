@@ -35,7 +35,7 @@ const AddTodoItem = ({addTodoItem}) => {
       />
       <TouchableOpacity style={styles.btn} onPress={performAddTodoItem}>
         <Text style={styles.btnText}>
-          <Icon name="plus-circle" size={30} color="#3CB371" />
+          <Icon name="plus-circle" size={50} color="#3CB371" />
         </Text>
       </TouchableOpacity>
     </View>
@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     color: '#666666',
     borderRadius: 999,
+    fontSize: 17,
   },
   btn: {
     height: '100%',

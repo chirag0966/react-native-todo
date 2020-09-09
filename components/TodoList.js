@@ -13,7 +13,7 @@ const TodoList = () => {
 
   const addTodoItem = (text) => {
     setTodoItems((previousItems) => {
-      return [{id: uuid.v4(), text}, ...previousItems];
+      return [{id: uuid.v4(), text, isCompleted: false}, ...previousItems];
     });
   };
 
@@ -23,8 +23,23 @@ const TodoList = () => {
     });
   };
 
+  const toggleTodoItemCompletion = (id) => {
+    setTodoItems((previousItems) => {
+      return previousItems.map((item) => {
+        if (item.id === id) {
+          item.isCompleted = !item.isCompleted;
+        }
+        return item;
+      });
+    });
+  };
+
   const renderItem = ({item}) => (
-    <TodoListItem item={item} deleteTodoItem={deleteTodoItem} />
+    <TodoListItem
+      item={item}
+      deleteTodoItem={deleteTodoItem}
+      toggleTodoItemCompletion={toggleTodoItemCompletion}
+    />
   );
 
   return (
