@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, FlatList} from 'react-native';
+import {StyleSheet, View, SectionList, Text} from 'react-native';
 
 import {Buffer} from 'buffer';
 global.Buffer = Buffer; // very important
@@ -42,14 +42,45 @@ const TodoList = () => {
     />
   );
 
+  const itemsForSectionList = () => {
+    const completedItems = todoItems.filter((item) => {
+      return item.isCompleted;
+    });
+
+    const incompletedItems = todoItems.filter((item) => {
+      return !item.isCompleted;
+    });
+
+    const allItems = [];
+
+    if (incompletedItems != null && incompletedItems.length !== 0) {
+      allItems.push({
+        title: 'Incompleted',
+        data: incompletedItems,
+      });
+    }
+
+    if (completedItems != null && completedItems.length !== 0) {
+      allItems.push({
+        title: 'Completed',
+        data: completedItems,
+      });
+    }
+
+    return allItems;
+  };
+
   return (
     <View style={styles.container}>
       <AddTodoItem addTodoItem={addTodoItem} />
-      <FlatList
+      <SectionList
         style={styles.list}
-        data={todoItems}
+        sections={itemsForSectionList()}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item, index) => index + item.id}
+        renderSectionHeader={({section: {title}}) => (
+          <Text style={styles.sectionHeader}>{title}</Text>
+        )}
       />
     </View>
   );
@@ -64,6 +95,13 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     fontWeight: '500',
+  },
+  sectionHeader: {
+    fontSize: 17,
+    fontWeight: '500',
+    padding: 16,
+    backgroundColor: '#FAF9F9',
+    color: '#292F36',
   },
 });
 

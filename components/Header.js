@@ -11,7 +11,7 @@ const Header = ({title}) => {
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: 'darkslateblue',
+    backgroundColor: '#292F36',
     padding: 16,
   },
   title: {

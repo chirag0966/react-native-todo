@@ -1,13 +1,7 @@
 import React, {useState, useRef} from 'react';
-import {
-  StyleSheet,
-  View,
-  TextInput,
-  TouchableOpacity,
-  Text,
-} from 'react-native';
+import {StyleSheet, View, TextInput, TouchableOpacity} from 'react-native';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const AddTodoItem = ({addTodoItem}) => {
   const [text, setText] = useState('');
@@ -27,44 +21,41 @@ const AddTodoItem = ({addTodoItem}) => {
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder="Enter todo item name"
-        onChangeText={onChange}
-        ref={textInputRef}
-      />
-      <TouchableOpacity style={styles.btn} onPress={performAddTodoItem}>
-        <Text style={styles.btnText}>
-          <Icon name="plus-circle" size={50} color="#3CB371" />
-        </Text>
-      </TouchableOpacity>
+      <View style={styles.content}>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter todo item name"
+          onChangeText={onChange}
+          ref={textInputRef}
+        />
+        <TouchableOpacity style={styles.btn} onPress={performAddTodoItem}>
+          <Icon name="ios-add-circle-sharp" size={44} color="#4ECDC4" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
     padding: 16,
     backgroundColor: '#eee',
   },
   input: {
     flex: 1,
-    padding: 16,
-    backgroundColor: 'white',
-    color: '#666666',
-    borderRadius: 999,
+    padding: 20,
+    color: '#777',
     fontSize: 17,
   },
   btn: {
-    height: '100%',
     padding: 8,
   },
-  btnText: {
-    color: 'white',
-    fontWeight: '500',
+  content: {
+    display: 'flex',
+    flexDirection: 'row',
+    borderRadius: 999,
+    backgroundColor: 'white',
+    alignItems: 'center',
   },
 });
 

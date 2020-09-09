@@ -20,7 +20,7 @@ const TodoListItem = ({item, deleteTodoItem, toggleTodoItemCompletion}) => {
       <TouchableOpacity
         style={styles.btn}
         onPress={() => deleteTodoItem(item.id)}>
-        <Icon name="trash" size={30} color="#FA8072" />
+        <Icon name="trash" size={24} color="#FF6B6B" />
       </TouchableOpacity>
     </View>
   );
@@ -28,7 +28,7 @@ const TodoListItem = ({item, deleteTodoItem, toggleTodoItemCompletion}) => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    padding: 16,
     borderBottomColor: '#E8E8E8',
     borderBottomWidth: 1,
     display: 'flex',
@@ -39,12 +39,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   listItemText: {
-    fontSize: 17,
+    fontSize: 16,
     flex: 1,
     color: '#666666',
   },
   listItemCompletedText: {
-    fontSize: 17,
+    fontSize: 16,
     flex: 1,
     color: '#c8c8c8',
     textDecorationLine: 'line-through',
