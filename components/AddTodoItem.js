@@ -1,5 +1,11 @@
 import React, {useState, useRef} from 'react';
-import {StyleSheet, View, TextInput, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  TouchableOpacity,
+  Keyboard,
+} from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -15,6 +21,7 @@ const AddTodoItem = ({addTodoItem}) => {
     if (text !== '') {
       setText('');
       textInputRef.current.clear();
+      Keyboard.dismiss();
       addTodoItem(text);
     }
   };
@@ -27,6 +34,7 @@ const AddTodoItem = ({addTodoItem}) => {
           placeholder="Enter todo item name"
           onChangeText={onChange}
           ref={textInputRef}
+          autoCorrect={false}
         />
         <TouchableOpacity style={styles.btn} onPress={performAddTodoItem}>
           <Icon name="ios-add-circle-sharp" size={44} color="#4ECDC4" />

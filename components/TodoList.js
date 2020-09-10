@@ -2,9 +2,10 @@ import React, {useState} from 'react';
 import {StyleSheet, View, SectionList, Text} from 'react-native';
 
 import {Buffer} from 'buffer';
-global.Buffer = Buffer; // very important
+global.Buffer = Buffer;
 
 import uuid from 'react-native-uuid';
+
 import TodoListItem from './TodoListItem';
 import AddTodoItem from './AddTodoItem';
 
