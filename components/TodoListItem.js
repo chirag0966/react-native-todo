@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, Text, TouchableOpacity, Animated} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, Animated} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const TodoListItem = ({item, deleteTodoItem, toggleTodoItemCompletion}) => {
@@ -8,15 +8,16 @@ const TodoListItem = ({item, deleteTodoItem, toggleTodoItemCompletion}) => {
   function performDelete() {
     Animated.timing(topValue, {
       toValue: 999,
-      duration: 500,
-      useNativeDriver: false,
+      duration: 300,
+      useNativeDriver: true,
     }).start(() => {
       deleteTodoItem(item.id);
     });
   }
 
   return (
-    <Animated.View style={[styles.animatedContainer, {top: topValue}]}>
+    <Animated.View
+      style={[styles.animatedContainer, {transform: [{translateX: topValue}]}]}>
       <TouchableOpacity
         style={styles.listItem}
         onPress={() => toggleTodoItemCompletion(item.id)}>
