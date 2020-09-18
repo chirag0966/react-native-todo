@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -10,19 +10,17 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const AddTodoItem = ({addTodoItem}) => {
-  const [text, setText] = useState('');
-  const textInputRef = useRef(null);
+  const [todoTitle, setTodoTitle] = useState('');
 
   const onChange = (textValue) => {
-    setText(textValue);
+    setTodoTitle(textValue);
   };
 
   const performAddTodoItem = () => {
-    if (text !== '') {
-      setText('');
-      textInputRef.current.clear();
+    if (todoTitle !== '') {
+      setTodoTitle('');
       Keyboard.dismiss();
-      addTodoItem(text);
+      addTodoItem(todoTitle);
     }
   };
 
@@ -33,8 +31,8 @@ const AddTodoItem = ({addTodoItem}) => {
           style={styles.input}
           placeholder="Enter todo item name"
           onChangeText={onChange}
-          ref={textInputRef}
           autoCorrect={false}
+          value={todoTitle}
         />
         <TouchableOpacity style={styles.btn} onPress={performAddTodoItem}>
           <Icon name="ios-add-circle-sharp" size={44} color="#4ECDC4" />
@@ -47,11 +45,12 @@ const AddTodoItem = ({addTodoItem}) => {
 const styles = StyleSheet.create({
   container: {
     padding: 16,
+    paddingTop: 0,
     backgroundColor: '#292F36',
   },
   input: {
     flex: 1,
-    padding: 20,
+    padding: 16,
     color: '#777',
     fontSize: 17,
   },
