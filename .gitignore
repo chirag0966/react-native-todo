@@ -330,3 +330,12 @@ Icon
 # Directories potentially created on remote AFP share
 
 # End of https://www.toptal.com/developers/gitignore/api/code,reactnative,react,macos
+
+# CocoaPods
+/ios/Pods/*
+/ios/Podfile.lock
+packages/rn-tester/Gemfile.lock
+
+# Ignore RNTester specific Pods, but keep the __offline_mirrors__ here.
+/packages/rn-tester/Pods/*
+!/packages/rn-tester/Pods/__offline_mirrors__
