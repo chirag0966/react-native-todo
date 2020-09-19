@@ -9,7 +9,9 @@ import {
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const AddTodoItem = ({addTodoItem}) => {
+import {addTodoItem} from '../services/FirestoreService';
+
+const AddTodoItem = () => {
   const [todoTitle, setTodoTitle] = useState('');
 
   const onChange = (textValue) => {

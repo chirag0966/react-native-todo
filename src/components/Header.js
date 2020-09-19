@@ -4,7 +4,9 @@ import {StyleSheet, View, Text, Image} from 'react-native';
 const Header = ({title, userImageURL}) => {
   return (
     <View style={styles.header}>
-      <Image style={styles.userImage} source={{uri: userImageURL}} />
+      {userImageURL && (
+        <Image style={styles.userImage} source={{uri: userImageURL}} />
+      )}
       <Text style={styles.title}>{title}</Text>
     </View>
   );

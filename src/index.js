@@ -1,26 +1,23 @@
 import React, {useState, useEffect} from 'react';
-import {SafeAreaView, StyleSheet, View} from 'react-native';
+import {SafeAreaView, StyleSheet, View, Text} from 'react-native';
+
+import auth from '@react-native-firebase/auth';
 
 import Header from './components/Header';
 import TodoList from './components/TodoList';
 import TDStatusBar from './components/TDStatusBar';
-
 import Login from './components/Login';
-import auth from '@react-native-firebase/auth';
 
 const App = () => {
-  // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
 
-  // Handle user state changes
-  function onAuthStateChanged(_user) {
-    console.log(_user);
+  const onAuthStateChanged = (_user) => {
     setUser(_user);
     if (initializing) {
       setInitializing(false);
     }
-  }
+  };
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
@@ -28,14 +25,18 @@ const App = () => {
   });
 
   if (initializing) {
-    return null;
+    return (
+      <View>
+        <Text>Loading...</Text>
+      </View>
+    );
   }
 
   return (
     <View style={styles.appContainer}>
       <TDStatusBar />
       <SafeAreaView style={styles.appContainer}>
-        <Header title="ToDo's" userImageURL={user.photoURL} />
+        <Header title="ToDo's" userImageURL={user ? user.photoURL : null} />
         {user ? <TodoList /> : <Login />}
       </SafeAreaView>
     </View>

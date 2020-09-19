@@ -2,17 +2,19 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, Animated} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const TodoListItem = ({item, deleteTodoItem, toggleTodoItemCompletion}) => {
+import * as Constants from './../constants';
+
+import {removeTodoItem, toggleTodoItem} from '../services/FirestoreService';
+
+const TodoListItem = ({item}) => {
   const topValue = useState(new Animated.Value(0))[0];
 
   function performDelete() {
     Animated.timing(topValue, {
       toValue: 999,
-      duration: 300,
+      duration: Constants.DURATION_TODO_DELETE,
       useNativeDriver: true,
-    }).start(() => {
-      deleteTodoItem(item.id);
-    });
+    }).start(() => removeTodoItem(item.id));
   }
 
   return (
@@ -20,14 +22,14 @@ const TodoListItem = ({item, deleteTodoItem, toggleTodoItemCompletion}) => {
       style={[styles.animatedContainer, {transform: [{translateX: topValue}]}]}>
       <TouchableOpacity
         style={styles.listItem}
-        onPress={() => toggleTodoItemCompletion(item.id)}>
+        onPress={() => toggleTodoItem(item.id)}>
         <Text
           style={
             item.isCompleted
               ? styles.listItemCompletedText
               : styles.listItemText
           }>
-          {item.text}
+          {item.itemName}
         </Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.btn} onPress={performDelete}>

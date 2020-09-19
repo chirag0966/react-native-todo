@@ -1,45 +1,25 @@
 import React, {useState} from 'react';
 import {StyleSheet, View, SectionList, Text} from 'react-native';
 
-import uuid from 'react-native-uuid';
-
 import TodoListItem from './TodoListItem';
 import AddTodoItem from './AddTodoItem';
+
+import {getTodoItems} from '../services/FirestoreService';
 
 const TodoList = () => {
   const [todoItems, setTodoItems] = useState([]);
 
-  const addTodoItem = (text) => {
-    setTodoItems((previousItems) => [
-      {id: uuid.v4(), text, isCompleted: false},
-      ...previousItems,
-    ]);
-  };
-
-  const deleteTodoItem = (id) => {
-    setTodoItems((previousItems) =>
-      previousItems.filter((item) => item.id !== id),
-    );
-  };
-
-  const toggleTodoItemCompletion = (id) => {
-    setTodoItems((previousItems) => {
-      return previousItems.map((item) => {
-        if (item.id === id) {
-          item.isCompleted = !item.isCompleted;
-        }
-        return item;
-      });
+  getTodoItems()
+    .then((_todoItems) => {
+      setTodoItems(_todoItems);
+    })
+    .catch((error) => {
+      console.log('=================ERROR on getTodoItems==================');
+      console.log(error);
+      console.log('========================================================');
     });
-  };
 
-  const renderItem = ({item}) => (
-    <TodoListItem
-      item={item}
-      deleteTodoItem={deleteTodoItem}
-      toggleTodoItemCompletion={toggleTodoItemCompletion}
-    />
-  );
+  const renderItem = ({item}) => <TodoListItem item={item} />;
 
   const itemsForSectionList = () => {
     const allItems = [];
@@ -65,7 +45,7 @@ const TodoList = () => {
 
   return (
     <View style={styles.container}>
-      <AddTodoItem addTodoItem={addTodoItem} />
+      <AddTodoItem />
       <SectionList
         style={styles.list}
         sections={itemsForSectionList()}

@@ -15,7 +15,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "436445967056-58acg2o4fjtqoee0m8idaafjnt5gpsdd.apps.googleusercontent.com",
+          "client_id": "436445967056-tsf9jcrhshpkf3i3d4pvvadfl48fgeup.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.todoist",
@@ -38,6 +38,13 @@
             {
               "client_id": "436445967056-ctd4d89qit6lop6gvvfdt27jltsbim9r.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "436445967056-1r1ki8h4m4aotaaikk4ta3bt3e2gbktf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.Todoist"
+              }
             }
           ]
         }
