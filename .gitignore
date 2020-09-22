@@ -339,3 +339,8 @@ packages/rn-tester/Gemfile.lock
 # Ignore RNTester specific Pods, but keep the __offline_mirrors__ here.
 /packages/rn-tester/Pods/*
 !/packages/rn-tester/Pods/__offline_mirrors__
+
+# Configuration files
+/android/*/google-services.json
+/ios/*/GoogleService-Info.plist
+/config.json
