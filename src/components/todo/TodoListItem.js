@@ -2,20 +2,20 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, Animated} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import * as Constants from './../constants';
+import * as Constants from '../../constants';
 
-import {removeTodoItem, toggleTodoItem} from '../services/FirestoreService';
+import {removeTodoItem, toggleTodoItem} from '../../services/FirestoreService';
 
 const TodoListItem = ({item}) => {
   const topValue = useState(new Animated.Value(0))[0];
 
-  function performDelete() {
+  const performDelete = () => {
     Animated.timing(topValue, {
       toValue: 999,
       duration: Constants.DURATION_TODO_DELETE,
       useNativeDriver: true,
     }).start(() => removeTodoItem(item.id));
-  }
+  };
 
   return (
     <Animated.View
@@ -62,6 +62,9 @@ const styles = StyleSheet.create({
     flex: 1,
     color: '#c8c8c8',
     textDecorationLine: 'line-through',
+  },
+  btn: {
+    paddingLeft: 16,
   },
 });
 

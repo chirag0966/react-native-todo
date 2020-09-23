@@ -9,20 +9,21 @@ import {
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import {addTodoItem} from '../services/FirestoreService';
+import {addTodoItem} from './../../services/FirestoreService';
 
 const AddTodoItem = () => {
   const [todoTitle, setTodoTitle] = useState('');
 
-  const onChange = (textValue) => {
-    setTodoTitle(textValue);
-  };
+  const onChange = (textValue) => setTodoTitle(textValue);
 
   const performAddTodoItem = () => {
     if (todoTitle !== '') {
-      setTodoTitle('');
       Keyboard.dismiss();
-      addTodoItem(todoTitle);
+      addTodoItem(todoTitle)
+        .then(() => setTodoTitle(''))
+        .catch((error) =>
+          console.log(`Error occured while adding\n ERROR: ${error}`),
+        );
     }
   };
 

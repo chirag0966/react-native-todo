@@ -3,9 +3,9 @@ import {SafeAreaView, StyleSheet, View, Text} from 'react-native';
 
 import auth from '@react-native-firebase/auth';
 
-import Header from './components/Header';
-import TodoList from './components/TodoList';
-import TDStatusBar from './components/TDStatusBar';
+import Header from './components/base/Header';
+import TodoList from './components/todo/TodoList';
+import TDStatusBar from './components/base/TDStatusBar';
 import Login from './components/Login';
 
 const App = () => {

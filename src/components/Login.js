@@ -4,10 +4,8 @@ import {StyleSheet, View, TouchableOpacity, Image} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-community/google-signin';
 
-import configFile from './../../config.json';
+import config from './../../config.json';
 import * as Constants from './../constants';
-
-const config = JSON.parse(JSON.stringify(configFile));
 
 const onGoogleButtonPress = async () => {
   // Get the users ID token
@@ -15,7 +13,10 @@ const onGoogleButtonPress = async () => {
   // Create a Google credential with the token
   const googleCredential = auth.GoogleAuthProvider.credential(idToken);
   // Sign-in the user with the credential
-  auth().signInWithCredential(googleCredential);
+  auth()
+    .signInWithCredential(googleCredential)
+    .then(() => console.log('GOOGLE SIGNING SUCCESS'))
+    .catch((error) => console.log(`GOOGLE SIGNING ERROR: ${error}`));
 };
 
 const Login = () => {
@@ -25,12 +26,7 @@ const Login = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() =>
-          onGoogleButtonPress()
-            .then(() => console.log('Signed in with Google!'))
-            .catch((error) => console.log(`GOOGLE SIGNING ERROR: ${error}`))
-        }>
+      <TouchableOpacity onPress={() => onGoogleButtonPress()}>
         <Image
           style={styles.loginImg}
           source={{uri: Constants.IMAGE_URL_LOGIN}}

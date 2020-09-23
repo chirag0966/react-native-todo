@@ -1,30 +1,22 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {StyleSheet, View, SectionList, Text} from 'react-native';
 
 import TodoListItem from './TodoListItem';
 import AddTodoItem from './AddTodoItem';
+import Loader from './../base/Loader';
+import TDToast from './../base/TDToast';
 
-import {getTodoItems} from '../services/FirestoreService';
+import {useTodos} from './../../services/FirestoreService';
 
 const TodoList = () => {
-  const [todoItems, setTodoItems] = useState([]);
-
-  getTodoItems()
-    .then((_todoItems) => {
-      setTodoItems(_todoItems);
-    })
-    .catch((error) => {
-      console.log('=================ERROR on getTodoItems==================');
-      console.log(error);
-      console.log('========================================================');
-    });
+  const {error, loading, todos} = useTodos();
 
   const renderItem = ({item}) => <TodoListItem item={item} />;
 
   const itemsForSectionList = () => {
     const allItems = [];
-    const completedItems = todoItems.filter((item) => item.isCompleted);
-    const incompletedItems = todoItems.filter((item) => !item.isCompleted);
+    const completedItems = todos.filter((item) => item.isCompleted);
+    const incompletedItems = todos.filter((item) => !item.isCompleted);
 
     if (incompletedItems != null && incompletedItems.length !== 0) {
       allItems.push({
@@ -42,6 +34,14 @@ const TodoList = () => {
 
     return allItems;
   };
+
+  if (loading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    TDToast(error);
+  }
 
   return (
     <View style={styles.container}>
