@@ -1,5 +1,6 @@
 {
     "terminal.integrated.fontSize": 14,
     "debug.console.fontSize": 14,
-    "materialTheme.accent": "Breaking Bad"
+    "materialTheme.accent": "Breaking Bad",
+    "editor.wordWrap": "wordWrapColumn"
 }

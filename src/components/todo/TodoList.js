@@ -7,6 +7,7 @@ import Loader from './../base/Loader';
 import TDToast from './../base/TDToast';
 
 import {useTodos} from './../../services/FirestoreService';
+import {TITLE_COMPLETED, TITLE_INCOMPLETED} from './../../constants';
 
 const TodoList = ({userId}) => {
   const {error, loading, todos} = useTodos(userId);
@@ -14,25 +15,19 @@ const TodoList = ({userId}) => {
   const renderItem = ({item}) => <TodoListItem item={item} userId={userId} />;
 
   const itemsForSectionList = () => {
-    const allItems = [];
-    const completedItems = todos.filter((item) => item.isCompleted);
-    const incompletedItems = todos.filter((item) => !item.isCompleted);
+    const reduceTodos = (accumulator, currentValue) => {
+      const title = currentValue.isCompleted
+        ? TITLE_COMPLETED
+        : TITLE_INCOMPLETED;
+      accumulator.find((data) => data.title === title) ||
+        accumulator.push({title, data: []});
 
-    if (incompletedItems != null && incompletedItems.length !== 0) {
-      allItems.push({
-        title: 'Incompleted',
-        data: incompletedItems,
-      });
-    }
+      accumulator.find((data) => data.title === title).data.push(currentValue);
 
-    if (completedItems != null && completedItems.length !== 0) {
-      allItems.push({
-        title: 'Completed',
-        data: completedItems,
-      });
-    }
+      return accumulator;
+    };
 
-    return allItems;
+    return todos.reduce(reduceTodos, []);
   };
 
   if (loading) {
