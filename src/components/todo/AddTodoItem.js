@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import {addTodoItem} from './../../services/FirestoreService';
 
-const AddTodoItem = () => {
+const AddTodoItem = ({userId}) => {
   const [todoTitle, setTodoTitle] = useState('');
 
   const onChange = (textValue) => setTodoTitle(textValue);
@@ -19,7 +19,7 @@ const AddTodoItem = () => {
   const performAddTodoItem = () => {
     if (todoTitle !== '') {
       Keyboard.dismiss();
-      addTodoItem(todoTitle)
+      addTodoItem(todoTitle, userId)
         .then(() => setTodoTitle(''))
         .catch((error) =>
           console.log(`Error occured while adding\n ERROR: ${error}`),

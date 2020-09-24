@@ -1,5 +1,9 @@
 import React from 'react';
-import {StyleSheet, View, Text, Image} from 'react-native';
+import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
+
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+import {logout} from './../../services/AuthenticationService';
 
 const Header = ({title, userImageURL}) => {
   return (
@@ -8,6 +12,9 @@ const Header = ({title, userImageURL}) => {
         <Image style={styles.userImage} source={{uri: userImageURL}} />
       )}
       <Text style={styles.title}>{title}</Text>
+      <TouchableOpacity style={styles.btn} onPress={() => logout()}>
+        <Icon name="power-off" size={30} color="#FF6B6B" />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -19,13 +26,13 @@ const styles = StyleSheet.create({
     height: 64,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
   title: {
     fontSize: 23,
     color: 'white',
     textAlign: 'center',
     fontWeight: '600',
-    marginLeft: 16,
   },
   userImage: {
     height: '100%',

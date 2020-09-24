@@ -6,7 +6,7 @@ import * as Constants from '../../constants';
 
 import {removeTodoItem, toggleTodoItem} from '../../services/FirestoreService';
 
-const TodoListItem = ({item}) => {
+const TodoListItem = ({item, userId}) => {
   const topValue = useState(new Animated.Value(0))[0];
 
   const performDelete = () => {
@@ -14,7 +14,7 @@ const TodoListItem = ({item}) => {
       toValue: 999,
       duration: Constants.DURATION_TODO_DELETE,
       useNativeDriver: true,
-    }).start(() => removeTodoItem(item.id));
+    }).start(() => removeTodoItem(item.id, userId));
   };
 
   return (
@@ -22,7 +22,7 @@ const TodoListItem = ({item}) => {
       style={[styles.animatedContainer, {transform: [{translateX: topValue}]}]}>
       <TouchableOpacity
         style={styles.listItem}
-        onPress={() => toggleTodoItem(item.id)}>
+        onPress={() => toggleTodoItem(item.id, userId)}>
         <Text
           style={
             item.isCompleted

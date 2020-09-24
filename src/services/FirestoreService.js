@@ -5,9 +5,9 @@ import * as Constants from './../constants';
 
 const usersCollection = firestore().collection(Constants.COLLECTION_USERS);
 
-const useTodos = () => {
+const useTodos = (userId) => {
   const [todosData, setTodosData] = useState(createTodosData());
-  useEffect(() => getTodosData((data) => setTodosData(data)), []);
+  useEffect(() => getTodosData(userId, (data) => setTodosData(data)), [userId]);
   return todosData;
 };
 
@@ -35,9 +35,9 @@ const createTodosData = (data) => {
   }
 };
 
-const getTodosData = (onCompletion) => {
+const getTodosData = (userId, onCompletion) => {
   return usersCollection
-    .doc(Constants.DOCUMENT_DATA)
+    .doc(userId)
     .collection(Constants.COLLECTION_TODOS)
     .onSnapshot(
       (snapshot) => {
@@ -51,29 +51,29 @@ const getTodosData = (onCompletion) => {
     );
 };
 
-const getTodoItem = (id) => {
+const getTodoItem = (id, userId) => {
   return usersCollection
-    .doc(Constants.DOCUMENT_DATA)
+    .doc(userId)
     .collection(Constants.COLLECTION_TODOS)
     .doc(id);
 };
 
-const addTodoItem = async (itemName) => {
+const addTodoItem = async (itemName, userId) => {
   return usersCollection
-    .doc(Constants.DOCUMENT_DATA)
+    .doc(userId)
     .collection(Constants.COLLECTION_TODOS)
     .add({itemName, isCompleted: false});
 };
 
-const removeTodoItem = async (id) => {
-  getTodoItem(id)
+const removeTodoItem = async (id, userId) => {
+  getTodoItem(id, userId)
     .get()
     .then((docRef) => docRef.ref.delete())
     .catch((error) => console.log(`removeTodoItem Error: ${error}`));
 };
 
-const toggleTodoItem = async (id) => {
-  getTodoItem(id)
+const toggleTodoItem = async (id, userId) => {
+  getTodoItem(id, userId)
     .get()
     .then((docRef) =>
       docRef.ref.update({isCompleted: !docRef.data().isCompleted}),

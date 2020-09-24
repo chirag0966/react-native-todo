@@ -1,43 +1,33 @@
-import React, {useState, useEffect} from 'react';
-import {SafeAreaView, StyleSheet, View, Text} from 'react-native';
-
-import auth from '@react-native-firebase/auth';
+import React from 'react';
+import {SafeAreaView, StyleSheet, View} from 'react-native';
 
 import Header from './components/base/Header';
-import TodoList from './components/todo/TodoList';
 import TDStatusBar from './components/base/TDStatusBar';
+import Loader from './components/base/Loader';
 import Login from './components/Login';
+import TodoList from './components/todo/TodoList';
+
+import {useAuthentication} from './services/AuthenticationService';
 
 const App = () => {
-  const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState();
+  const {loading, data} = useAuthentication();
 
-  const onAuthStateChanged = (_user) => {
-    setUser(_user);
-    if (initializing) {
-      setInitializing(false);
-    }
-  };
-
-  useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber; // unsubscribe on unmount
-  });
-
-  if (initializing) {
-    return (
-      <View>
-        <Text>Loading...</Text>
-      </View>
-    );
+  if (loading) {
+    return <Loader />;
   }
 
   return (
     <View style={styles.appContainer}>
       <TDStatusBar />
       <SafeAreaView style={styles.appContainer}>
-        <Header title="ToDo's" userImageURL={user ? user.photoURL : null} />
-        {user ? <TodoList /> : <Login />}
+        {data ? (
+          <View style={styles.appContainer}>
+            <Header title="ToDo's" userImageURL={data.photoURL} />
+            <TodoList userId={data.uid} />
+          </View>
+        ) : (
+          <Login />
+        )}
       </SafeAreaView>
     </View>
   );

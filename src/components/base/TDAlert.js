@@ -1,5 +1,4 @@
-import React from 'react';
-import {Alert, View} from 'react-native';
+import {Alert} from 'react-native';
 
 const dismissButton = {
   text: 'Ok',
@@ -8,7 +7,7 @@ const dismissButton = {
 
 const TDAlert = {
   error: (errorMessage) => {
-    return <View>{Alert.alert('Error', errorMessage, [dismissButton])}</View>;
+    Alert.alert('Error', errorMessage, [dismissButton]);
   },
 };
 

@@ -8,10 +8,10 @@ import TDToast from './../base/TDToast';
 
 import {useTodos} from './../../services/FirestoreService';
 
-const TodoList = () => {
-  const {error, loading, todos} = useTodos();
+const TodoList = ({userId}) => {
+  const {error, loading, todos} = useTodos(userId);
 
-  const renderItem = ({item}) => <TodoListItem item={item} />;
+  const renderItem = ({item}) => <TodoListItem item={item} userId={userId} />;
 
   const itemsForSectionList = () => {
     const allItems = [];
@@ -45,7 +45,7 @@ const TodoList = () => {
 
   return (
     <View style={styles.container}>
-      <AddTodoItem />
+      <AddTodoItem userId={userId} />
       <SectionList
         style={styles.list}
         sections={itemsForSectionList()}
