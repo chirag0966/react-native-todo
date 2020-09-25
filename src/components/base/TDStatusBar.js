@@ -4,6 +4,8 @@ import {NativeModules} from 'react-native';
 
 const {StatusBarManager} = NativeModules;
 
+import {PRIMARY_COLOR} from '../../theme';
+
 const TDStatusBar = () => {
   return (
     <View style={styles.StatusBar}>
@@ -19,7 +21,7 @@ const TDStatusBar = () => {
 const styles = StyleSheet.create({
   StatusBar: {
     height: StatusBarManager.HEIGHT,
-    backgroundColor: '#292F36',
+    backgroundColor: PRIMARY_COLOR,
   },
 });
 

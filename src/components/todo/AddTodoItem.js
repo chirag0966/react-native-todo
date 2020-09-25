@@ -10,6 +10,7 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import {addTodoItem} from './../../services/FirestoreService';
+import * as Theme from './../../theme';
 
 const AddTodoItem = ({userId}) => {
   const [todoTitle, setTodoTitle] = useState('');
@@ -47,7 +48,11 @@ const AddTodoItem = ({userId}) => {
           style={styles.btn}
           onPress={performAddTodoItem}
           disabled={addButtonDisabled}>
-          <Icon name="ios-add-circle-sharp" size={44} color="#4ECDC4" />
+          <Icon
+            name="ios-add-circle-sharp"
+            size={44}
+            color={Theme.CONSTRUCTIVE_COLOR}
+          />
         </TouchableOpacity>
       </View>
     </View>
@@ -58,12 +63,12 @@ const styles = StyleSheet.create({
   container: {
     padding: 16,
     paddingTop: 0,
-    backgroundColor: '#292F36',
+    backgroundColor: Theme.PRIMARY_COLOR,
   },
   input: {
     flex: 1,
     padding: 16,
-    color: '#777',
+    color: Theme.PRIMARY_TEXT_COLOR,
     fontSize: 17,
   },
   btn: {

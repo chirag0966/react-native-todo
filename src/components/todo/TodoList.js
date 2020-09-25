@@ -6,6 +6,8 @@ import AddTodoItem from './AddTodoItem';
 import Loader from './../base/Loader';
 import TDToast from './../base/TDToast';
 
+import * as Theme from '../../theme';
+
 import {useTodos} from './../../services/FirestoreService';
 import {TITLE_COMPLETED, TITLE_INCOMPLETED} from './../../constants';
 
@@ -42,7 +44,6 @@ const TodoList = ({userId}) => {
     <View style={styles.container}>
       <AddTodoItem userId={userId} />
       <SectionList
-        style={styles.list}
         sections={itemsForSectionList()}
         renderItem={renderItem}
         keyExtractor={(item, index) => index + item.id}
@@ -58,18 +59,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  list: {
-    fontSize: 20,
-    color: 'white',
-    textAlign: 'center',
-    fontWeight: '500',
-  },
   sectionHeader: {
     fontSize: 17,
     fontWeight: '500',
     padding: 16,
-    backgroundColor: '#F0EFEF',
-    color: '#aaa',
+    backgroundColor: Theme.SECONDARY_COLOR,
+    color: Theme.SECONDARY_TEXT_COLOR,
   },
 });
 
