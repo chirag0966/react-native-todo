@@ -13,17 +13,23 @@ import {addTodoItem} from './../../services/FirestoreService';
 
 const AddTodoItem = ({userId}) => {
   const [todoTitle, setTodoTitle] = useState('');
+  const [addButtonDisabled, setAddButtonDisabled] = useState(false);
 
   const onChange = (textValue) => setTodoTitle(textValue);
 
   const performAddTodoItem = () => {
     if (todoTitle !== '') {
+      setAddButtonDisabled(true);
       Keyboard.dismiss();
       addTodoItem(todoTitle, userId)
-        .then(() => setTodoTitle(''))
-        .catch((error) =>
-          console.log(`Error occured while adding\n ERROR: ${error}`),
-        );
+        .then(() => {
+          setTodoTitle('');
+          setAddButtonDisabled(false);
+        })
+        .catch((error) => {
+          console.log(`Error occured while adding\n ERROR: ${error}`);
+          setAddButtonDisabled(false);
+        });
     }
   };
 
@@ -37,7 +43,10 @@ const AddTodoItem = ({userId}) => {
           autoCorrect={false}
           value={todoTitle}
         />
-        <TouchableOpacity style={styles.btn} onPress={performAddTodoItem}>
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={performAddTodoItem}
+          disabled={addButtonDisabled}>
           <Icon name="ios-add-circle-sharp" size={44} color="#4ECDC4" />
         </TouchableOpacity>
       </View>
