@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, View, TouchableOpacity, Image} from 'react-native';
 
+import {of} from 'await-of';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-community/google-signin';
 
@@ -13,10 +14,12 @@ const onGoogleButtonPress = async () => {
   // Create a Google credential with the token
   const googleCredential = auth.GoogleAuthProvider.credential(idToken);
   // Sign-in the user with the credential
-  auth()
-    .signInWithCredential(googleCredential)
-    .then(() => console.log('GOOGLE SIGNING SUCCESS'))
-    .catch((error) => console.log(`GOOGLE SIGNING ERROR: ${error}`));
+  const [, error] = await of(auth().signInWithCredential(googleCredential));
+  if (error) {
+    console.log(`GOOGLE SIGNING ERROR: ${error}`);
+  } else {
+    console.log('GOOGLE SIGNING SUCCESS');
+  }
 };
 
 const Login = () => {

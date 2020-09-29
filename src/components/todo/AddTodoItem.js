@@ -7,6 +7,7 @@ import {
   Keyboard,
 } from 'react-native';
 
+import {of} from 'await-of';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import {addTodoItem} from './../../services/FirestoreService';
@@ -18,19 +19,19 @@ const AddTodoItem = ({userId}) => {
 
   const onChange = (textValue) => setTodoTitle(textValue);
 
-  const performAddTodoItem = () => {
+  const performAddTodoItem = async () => {
     if (todoTitle !== '') {
       setAddButtonDisabled(true);
       Keyboard.dismiss();
-      addTodoItem(todoTitle, userId)
-        .then(() => {
-          setTodoTitle('');
-          setAddButtonDisabled(false);
-        })
-        .catch((error) => {
-          console.log(`Error occured while adding\n ERROR: ${error}`);
-          setAddButtonDisabled(false);
-        });
+      const [, error] = await of(addTodoItem(todoTitle, userId));
+      // Enable button and reset input field
+      setAddButtonDisabled(false);
+      setTodoTitle('');
+
+      if (error) {
+        console.log(`Error occured while adding\n ERROR: ${error}`);
+        return;
+      }
     }
   };
 

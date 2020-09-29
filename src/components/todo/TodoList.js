@@ -17,19 +17,28 @@ const TodoList = ({userId}) => {
   const renderItem = ({item}) => <TodoListItem item={item} userId={userId} />;
 
   const itemsForSectionList = () => {
-    const reduceTodos = (accumulator, currentValue) => {
-      const title = currentValue.isCompleted
-        ? TITLE_COMPLETED
-        : TITLE_INCOMPLETED;
-      accumulator.find((data) => data.title === title) ||
-        accumulator.push({title, data: []});
-
-      accumulator.find((data) => data.title === title).data.push(currentValue);
-
-      return accumulator;
-    };
-
-    return todos.reduce(reduceTodos, []);
+    const items = todos.reduce(
+      (accumulator, currentValue) => {
+        const title = currentValue.isCompleted
+          ? TITLE_COMPLETED
+          : TITLE_INCOMPLETED;
+        accumulator
+          .find((data) => data.title === title)
+          .data.push(currentValue);
+        return accumulator;
+      },
+      [
+        {
+          title: TITLE_INCOMPLETED,
+          data: [],
+        },
+        {
+          title: TITLE_COMPLETED,
+          data: [],
+        },
+      ],
+    );
+    return items.filter((item) => item.data.length > 0);
   };
 
   if (loading) {
