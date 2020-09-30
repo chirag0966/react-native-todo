@@ -12,6 +12,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import {addTodoItem} from './../../services/FirestoreService';
 import * as Theme from './../../theme';
+import * as Validator from './../../utilities/validations';
 
 const AddTodoItem = ({userId}) => {
   const [todoTitle, setTodoTitle] = useState('');
@@ -20,13 +21,14 @@ const AddTodoItem = ({userId}) => {
   const onChange = (textValue) => setTodoTitle(textValue);
 
   const performAddTodoItem = async () => {
-    if (todoTitle !== '') {
+    setTodoTitle('');
+
+    if (!Validator.isEmpty(todoTitle)) {
       setAddButtonDisabled(true);
       Keyboard.dismiss();
       const [, error] = await of(addTodoItem(todoTitle, userId));
       // Enable button and reset input field
       setAddButtonDisabled(false);
-      setTodoTitle('');
 
       if (error) {
         console.log(`Error occured while adding\n ERROR: ${error}`);

@@ -7,12 +7,14 @@ import TDLoader from '../common/TDLoader';
 import TDError from '../common/TDError';
 
 import * as Theme from '../../theme';
+import * as Validator from './../../utilities/validations';
 
 import {useTodos} from './../../services/FirestoreService';
 import {TITLE_COMPLETED, TITLE_INCOMPLETED} from './../../constants';
 
 const TodoList = ({userId}) => {
   const {error, loading, todos} = useTodos(userId);
+
   const renderItem = ({item}) => <TodoListItem item={item} userId={userId} />;
 
   const itemsForSectionList = () => {
@@ -38,7 +40,7 @@ const TodoList = ({userId}) => {
           },
         ],
       )
-      .filter((item) => item.data.length > 0);
+      .filter((item) => !Validator.isEmpty(item.data));
   };
 
   if (loading) {
