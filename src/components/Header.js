@@ -3,8 +3,8 @@ import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import {logout} from './../../services/AuthenticationService';
-import * as Theme from './../../theme';
+import {logout} from '../services/AuthenticationService';
+import * as Theme from '../theme';
 
 const Header = ({title, userImageURL}) => {
   return (

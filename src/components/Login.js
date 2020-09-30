@@ -5,8 +5,8 @@ import {of} from 'await-of';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-community/google-signin';
 
-import config from './../../config.json';
-import * as Constants from './../constants';
+import config from '../../config.json';
+import * as Constants from '../constants';
 
 const onGoogleButtonPress = async () => {
   // Get the users ID token

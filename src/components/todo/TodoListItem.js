@@ -11,11 +11,12 @@ const TodoListItem = ({item, userId}) => {
   const topValue = useState(new Animated.Value(0))[0];
 
   const performDelete = () => {
+    removeTodoItem(item.id, userId);
     Animated.timing(topValue, {
       toValue: 999,
       duration: Constants.DURATION_TODO_DELETE,
       useNativeDriver: true,
-    }).start(() => removeTodoItem(item.id, userId));
+    }).start();
   };
 
   return (
@@ -46,26 +47,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 16,
     borderBottomColor: Theme.SECONDARY_COLOR,
     borderBottomWidth: 1,
   },
   listItem: {
     flex: 1,
+    padding: 16,
   },
   listItemText: {
-    fontSize: 16,
-    flex: 1,
+    fontSize: 17,
     color: Theme.PRIMARY_TEXT_COLOR,
   },
   listItemCompletedText: {
-    fontSize: 16,
-    flex: 1,
+    fontSize: 17,
     color: Theme.SECONDARY_TEXT_COLOR,
     textDecorationLine: 'line-through',
   },
   btn: {
-    paddingLeft: 16,
+    padding: 20,
   },
 });
 

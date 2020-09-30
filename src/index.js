@@ -1,10 +1,10 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet, View} from 'react-native';
 
-import Header from './components/base/Header';
-import TDStatusBar from './components/base/TDStatusBar';
-import Loader from './components/base/Loader';
+import Header from './components/Header';
 import Login from './components/Login';
+import TDStatusBar from './components/common/TDStatusBar';
+import TDLoader from './components/common/TDLoader';
 import TodoList from './components/todo/TodoList';
 
 import {useAuthentication} from './services/AuthenticationService';
@@ -13,7 +13,7 @@ const App = () => {
   const {loading, data} = useAuthentication();
 
   if (loading) {
-    return <Loader />;
+    return <TDLoader />;
   }
 
   return (

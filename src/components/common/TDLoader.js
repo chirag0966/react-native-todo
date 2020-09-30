@@ -1,7 +1,7 @@
 import React from 'react';
 import {ActivityIndicator, StyleSheet, View} from 'react-native';
 
-const Loader = () => {
+const TDLoader = () => {
   return (
     <View style={styles.container}>
       <ActivityIndicator style={styles.loader} size="large" />
@@ -23,4 +23,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Loader;
+export default TDLoader;

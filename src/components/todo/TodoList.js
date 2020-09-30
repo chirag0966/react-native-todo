@@ -3,8 +3,8 @@ import {StyleSheet, View, SectionList, Text} from 'react-native';
 
 import TodoListItem from './TodoListItem';
 import AddTodoItem from './AddTodoItem';
-import Loader from './../base/Loader';
-import TDToast from './../base/TDToast';
+import TDLoader from '../common/TDLoader';
+import TDError from '../common/TDError';
 
 import * as Theme from '../../theme';
 
@@ -13,40 +13,40 @@ import {TITLE_COMPLETED, TITLE_INCOMPLETED} from './../../constants';
 
 const TodoList = ({userId}) => {
   const {error, loading, todos} = useTodos(userId);
-
   const renderItem = ({item}) => <TodoListItem item={item} userId={userId} />;
 
   const itemsForSectionList = () => {
-    const items = todos.reduce(
-      (accumulator, currentValue) => {
-        const title = currentValue.isCompleted
-          ? TITLE_COMPLETED
-          : TITLE_INCOMPLETED;
-        accumulator
-          .find((data) => data.title === title)
-          .data.push(currentValue);
-        return accumulator;
-      },
-      [
-        {
-          title: TITLE_INCOMPLETED,
-          data: [],
+    return todos
+      .reduce(
+        (accumulator, currentValue) => {
+          const title = currentValue.isCompleted
+            ? TITLE_COMPLETED
+            : TITLE_INCOMPLETED;
+          accumulator
+            .find((data) => data.title === title)
+            .data.push(currentValue);
+          return accumulator;
         },
-        {
-          title: TITLE_COMPLETED,
-          data: [],
-        },
-      ],
-    );
-    return items.filter((item) => item.data.length > 0);
+        [
+          {
+            title: TITLE_INCOMPLETED,
+            data: [],
+          },
+          {
+            title: TITLE_COMPLETED,
+            data: [],
+          },
+        ],
+      )
+      .filter((item) => item.data.length > 0);
   };
 
   if (loading) {
-    return <Loader />;
+    return <TDLoader />;
   }
 
   if (error) {
-    TDToast(error);
+    return <TDError error={error} />;
   }
 
   return (

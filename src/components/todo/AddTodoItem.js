@@ -46,7 +46,6 @@ const AddTodoItem = ({userId}) => {
           value={todoTitle}
         />
         <TouchableOpacity
-          style={styles.btn}
           onPress={performAddTodoItem}
           disabled={addButtonDisabled}>
           <Icon
@@ -63,17 +62,14 @@ const AddTodoItem = ({userId}) => {
 const styles = StyleSheet.create({
   container: {
     padding: 16,
-    paddingTop: 0,
     backgroundColor: Theme.PRIMARY_COLOR,
   },
   input: {
     flex: 1,
-    padding: 16,
+    marginLeft: 20,
+    marginRight: 8,
     color: Theme.PRIMARY_TEXT_COLOR,
     fontSize: 17,
-  },
-  btn: {
-    padding: 8,
   },
   content: {
     display: 'flex',
